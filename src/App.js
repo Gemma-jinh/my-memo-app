@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
 
 function App() {
+  const [notes, setNotes] = useState([]);
+  const [newNote, setNewNote] = useState("");
+
+  const addNote = () => {
+    if (newNote.trim()) {
+      setNotes([...notes, newNote]);
+      setNewNote("");
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Simple Note App</h1>
+
+      {/* 메모 입력 필드 */}
+      <input
+        type="text"
+        placeholder="Write a note..."
+        value={newNote}
+        onChange={(e) => setNewNote(e.target.value)}
+      />
+      <button onClick={addNote}>Add Note</button>
+
+      {/* 메모 목록 */}
+      <ul>
+        {notes.map((note, index) => (
+          <li key={index}>{note}</li>
+        ))}
+      </ul>
     </div>
   );
 }
